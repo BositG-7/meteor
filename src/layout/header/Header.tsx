@@ -2,14 +2,50 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Link as Scroll } from "react-scroll";
 import { IoMenu } from "react-icons/io5";
+import uz from "../../assets/img/uz.png";
+import ru from "../../assets/img/ru.png";
 
+import { useTranslation } from "react-i18next";
+import { Menu, MenuItem } from "@mui/material";
+
+const languages = [
+  {
+    key: "uz",
+    label: "Uzbek",
+    flag: <img src={uz} className="size-4" alt="Uzbek flag" />,
+  },
+  {
+    key: "ru",
+    label: "Russian",
+    flag: <img src={ru} className="size-4" alt="Russian flag" />,
+  },
+];
 const Header: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
 
+  const { t, i18n } = useTranslation();
+
+  const changeLanguage = (lang: string) => {
+    i18n.changeLanguage(lang);
+  };
+
+  const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    console.log(event.currentTarget);
+
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const langKEY = i18n.language;
+  const currentLanguage = languages.find((l) => l.key === langKEY);
   return (
     <>
       <header className="sticky top-0 z-10 flex p-5 text-white xl:p-9 bg-red">
@@ -21,7 +57,7 @@ const Header: React.FC = () => {
             <IoMenu />
           </a>
           <div id="logo">
-            <h5 className="flex">LOGO</h5>
+            <h5 className="flex">{t("welcome")}</h5>
           </div>
           <ul id="navigation" className="hidden gap-10 lg:flex">
             <li className="font-semibold">
@@ -98,6 +134,33 @@ const Header: React.FC = () => {
             </li>
           </ul>
         </nav>
+
+        <>
+          <Menu
+            anchorEl={anchorEl}
+            open={Boolean(anchorEl)}
+            onClose={handleClose}
+          >
+            {languages.map(({ key, label, flag }) => (
+              <MenuItem
+                key={key}
+                onClick={() => {
+                  changeLanguage(key);
+                  handleClose();
+                }}
+              >
+                <div className="flex items-center">
+                  {flag}
+                  <span className="ml-2">{label}</span>
+                </div>
+              </MenuItem>
+            ))}
+          </Menu>
+        </>
+
+        <div className="text-xl" onClick={handleClick}>
+          {currentLanguage?.flag}
+        </div>
       </header>
       <ul
         id="navigation"
