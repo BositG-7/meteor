@@ -5,6 +5,7 @@ import Filter from "../components/widgets/filter/Filter";
 import { ContactUs } from "../components/widgets";
 import { Pagination } from "../components/common";
 import { getScootersWithFilters, getFilters } from "../service/api";
+import { useTranslation } from "react-i18next";
 
 const Catalog: React.FC = () => {
   const [products, setProducts] = useState<any>({});
@@ -79,22 +80,24 @@ const Catalog: React.FC = () => {
     if (newPage < 1 || newPage > totalPages) return; // Sahifa raqamini tekshirish
     setCurrentPage(newPage);
   };
+  const { t } = useTranslation();
+
   return (
     <>
       <div className="container mx-auto my-6 xl:my-16">
         <div className="gap-12 mb-6 xl:flex xl:mb-12">
           <div className="hidden px-8 py-4 text-2xl font-semibold text-center bg-white rounded-lg shadow-md xl:w-1/5 xl:block">
-            Каталог мопедов
+            {t("catelog.top.text1")}
           </div>
           <div className="flex items-center justify-between w-11/12 gap-2 px-4 py-2 mx-auto bg-white rounded-lg shadow-md md:justify-start xl:gap-8 xl:w-4/5 xl:px-6">
             <h5 className="text-[10px] xl:text-2xl font-medium xl:ms-3">
-              Сортировать
+              {t("catelog.top.text2")}
             </h5>
             <button className="text-[9px] xl:text-2xl font-medium bg-lightgray px-4 py-2 rounded-md">
-              Подороже
+              {t("catelog.top.btn1")}
             </button>
             <button className="text-[9px] xl:text-2xl font-medium bg-blue text-white px-4 py-2 rounded-md">
-              Подешевле
+              {t("catelog.top.btn2")}
             </button>
             <button
               onClick={toggleFilter}

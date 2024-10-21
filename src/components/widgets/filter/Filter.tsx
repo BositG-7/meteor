@@ -31,7 +31,7 @@ const Filter: React.FC<FilterProps> = ({
     }
   }, [filterOptions.price]);
 
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const lang = i18n.language;
   useEffect(() => {
@@ -111,7 +111,7 @@ const Filter: React.FC<FilterProps> = ({
       </button>
 
       <div className="mb-4">
-        <h3 className="mb-2 text-xl font-semibold">Тип мопеда</h3>
+        <h3 className="mb-2 text-xl font-semibold">{t("type_moped")}</h3>
         <div className="flex items-center">
           <input
             type="checkbox"
@@ -120,7 +120,7 @@ const Filter: React.FC<FilterProps> = ({
             onChange={() => handleEngineTypeChange("gasoline")}
             checked={selectedEngineTypes.includes("gasoline")}
           />
-          <label className="block">Бензиновый</label>
+          <label className="block">{t("petrol")}</label>
         </div>
         <div className="flex items-center">
           <input
@@ -130,13 +130,13 @@ const Filter: React.FC<FilterProps> = ({
             onChange={() => handleEngineTypeChange("electric")}
             checked={selectedEngineTypes.includes("electric")}
           />
-          <label className="block">Электрический</label>
+          <label className="block">{t("electr")}</label>
         </div>
       </div>
 
       {/* Brands Filter */}
       <div className="mb-4">
-        <h3 className="mb-2 text-xl font-semibold">Марка</h3>
+        <h3 className="mb-2 text-xl font-semibold">{t("marka")}</h3>
         {filterOptions?.brands?.map((brand: any) => (
           <div key={brand.id} className="flex items-center">
             <input
@@ -153,7 +153,7 @@ const Filter: React.FC<FilterProps> = ({
 
       {/* Battery Types Filter */}
       <div className="mb-4">
-        <h3 className="mb-2 text-xl font-semibold">Аккумулятор</h3>
+        <h3 className="mb-2 text-xl font-semibold">{t("power")}</h3>
 
         {filterOptions?.batteryTypes?.map((battery: any) => (
           <div key={battery.id} className="flex items-center">
@@ -171,7 +171,7 @@ const Filter: React.FC<FilterProps> = ({
 
       {/* Colors Filter */}
       <div className="mb-4">
-        <h3 className="mb-2 text-xl font-semibold">Цвет</h3>
+        <h3 className="mb-2 text-xl font-semibold">{t("color")}</h3>
         {filterOptions.colors?.map((color: any) => (
           <div key={color.id} className="flex items-center">
             <input
@@ -190,7 +190,7 @@ const Filter: React.FC<FilterProps> = ({
 
       {/* Price Filter */}
       <div className="mb-4">
-        <h3 className="mb-2 text-xl font-semibold">Цена, сум</h3>
+        <h3 className="mb-2 text-xl font-semibold">{t("price")} (сум)</h3>
         <div className="flex items-center justify-around gap-2">
           <input
             type="number"
@@ -217,7 +217,7 @@ const Filter: React.FC<FilterProps> = ({
         className="w-full py-2 rounded bg-lightgray ring-1 ring-black hover:bg-red-600"
         onClick={handleClearFilters}
       >
-        Очистить всё
+        {t("delete_btn")}
       </button>
     </div>
   );

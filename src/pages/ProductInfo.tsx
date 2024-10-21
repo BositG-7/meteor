@@ -155,7 +155,7 @@ const ProductInfo = () => {
                 </div>
                 <div className="flex items-center gap-4 mb-5 lg:w-full lg:block">
                   <h2 className="mb-1 text-sm lg:text-xl lg:mb-2">
-                    Цвет:{" "}
+                    {t("color")}:{" "}
                     <span className="hidden lg:inline-block">
                       {lang === "uz"
                         ? selectedColorName.uz
@@ -184,7 +184,7 @@ const ProductInfo = () => {
                                 ? "border-2 border-gray-500"
                                 : ""
                             }`}
-                            style={{ backgroundColor: color.color }} // Style bilan rangni dinamik tarzda qo'shish
+                            style={{ backgroundColor: color.color }}
                           />
                           {selectedColor === color.color && (
                             <FaCheck className="absolute text-white transform -translate-x-1/2 size-5 top-1/2 left-1/2 -translate-y-2/3" />
@@ -196,7 +196,7 @@ const ProductInfo = () => {
                 </div>
               </div>
               <div className="mb-5">
-                <h2 className="mb-2 text-xl">Аккумулятор</h2>
+                <h2 className="mb-2 text-xl">{t("power")}</h2>
                 <div className="flex items-center gap-4">
                   {product?.battery_types.map((item) => (
                     <>
@@ -220,11 +220,11 @@ const ProductInfo = () => {
                 <div className="flex items-center justify-between">
                   <p className="flex items-center gap-2 text-sm font-semibold text-green lg:text-xl">
                     <FaCheck />
-                    гарантия от продавца
+                    {t("single.text1")}
                   </p>
                   <p className="flex items-center gap-2 text-sm font-semibold text-green lg:text-xl">
                     <FaCheck />
-                    Качество
+                    {t("single.text2")}
                   </p>
                 </div>
               </div>
@@ -237,7 +237,7 @@ const ProductInfo = () => {
                 offset={-window.innerHeight / 2 + 300}
                 className="px-12 py-3 text-white rounded-full cursor-pointer bg-orange"
               >
-                Заказать
+                {t("single.btn1")}
               </Scroll>
             </div>
           </div>
@@ -255,7 +255,7 @@ const ProductInfo = () => {
                   : "px-6 py-2 text-sm font-semibold rounded-full lg:py-4 lg:px-12 bg-lightgray lg:text-xl"
               }
             >
-              Информация
+              {t("single.btn2")}
             </button>
             <button
               onClick={() => {
@@ -267,7 +267,7 @@ const ProductInfo = () => {
                   : "px-6 py-2 text-sm font-semibold rounded-full lg:py-4 lg:px-12 bg-lightgray lg:text-xl"
               }
             >
-              Характеристики
+              {t("single.btn3")}
             </button>
           </div>
           {step === "INFORMATION" ? (

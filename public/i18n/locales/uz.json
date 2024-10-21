@@ -20,7 +20,40 @@
     "marka":"Marka",
     
     "model":"Model",
-    "type_moped":"Moped turi"
+    "type_moped":"Moped turi",
+    "form":{
+      "text1":"Biz bilan bog'lanish!",
+      "text2":"So'rov qoldiring va bizning menejerlarimiz qiladi tez orada siz bilan bog'lanadi.",
+      "input1":"Ismingiz *",
+      "input2":"Telefon nomeringiz *",
+      "btn":"So'rov yuboring"
+    },
+    "company":"KOMPANIYA",
+    "help":"YORDAM",
+    "magazin":"DOKON",
+    "footer_text":"Meteor Scooter kompaniyasi Xitoydan yuqori sifatli mopedlarni sotadi.",
+    "catelog":{
+      "top":{
+        "text1":"Moped katalogi",
+        "text2":"Saralash",
+        "btn1":"Qimmatroq",
+        "btn2":"Arzonroq"
+      }
+    },
+    "petrol":"Benzin",
+    "electr":"Elektr",
+    "power":"Batareya",
+    "color":"Rang",
+    "delete_btn":"Hammasini tozalang",
+    "single":{
+      "text1":"sotuvchining kafolati",
+      "text2":"Sifat",
+      "btn1":"Buyurtma",
+      "btn2":"Ma'lumot",
+      "btn3":"Xususiyatlari"
+    }
+
+
     
 
 
