@@ -29,6 +29,7 @@ const Header: React.FC = () => {
   };
 
   const { t, i18n } = useTranslation();
+  const langKEY = i18n.language;
 
   const changeLanguage = (lang: string) => {
     i18n.changeLanguage(lang);
@@ -44,8 +45,9 @@ const Header: React.FC = () => {
     setAnchorEl(null);
   };
 
-  const langKEY = i18n.language;
-  const currentLanguage = languages.find((l) => l.key === langKEY);
+  const currentLanguage = languages.find(
+    (l) => l.key === (langKEY === "en-US" ? "uz" : langKEY)
+  );
   return (
     <>
       <header className="sticky top-0 z-10 flex p-5 text-white xl:p-9 bg-red">
@@ -56,9 +58,7 @@ const Header: React.FC = () => {
           >
             <IoMenu />
           </a>
-          <div id="logo">
-            <h5 className="flex">{t("welcome")}</h5>
-          </div>
+
           <ul id="navigation" className="hidden gap-10 lg:flex">
             <li className="font-semibold">
               <Scroll
@@ -68,7 +68,7 @@ const Header: React.FC = () => {
                 offset={-window.innerHeight / 2 + 300}
                 className="cursor-pointer"
               >
-                <Link to="/">Главная</Link>
+                <Link to="/">{t("nav.main")}</Link>
               </Scroll>
             </li>
             <li className="font-semibold">
@@ -79,7 +79,7 @@ const Header: React.FC = () => {
                 offset={-window.innerHeight / 2 + 300}
                 className="cursor-pointer"
               >
-                О нас
+                {t("nav.about")}
               </Scroll>
             </li>
             <li className="font-semibold">
@@ -90,7 +90,7 @@ const Header: React.FC = () => {
                 offset={-window.innerHeight / 2 + 400}
                 className="cursor-pointer"
               >
-                <Link to="/">Мопеды</Link>
+                <Link to="/">{t("nav.moped")}</Link>
               </Scroll>
             </li>
             <li className="font-semibold">
@@ -101,7 +101,7 @@ const Header: React.FC = () => {
                 offset={-window.innerHeight / 2 + 400}
                 className="cursor-pointer"
               >
-                <Link to="/">Информация о мопедах</Link>
+                <Link to="/">{t("nav.information_moped")}</Link>
               </Scroll>
             </li>
             <li className="font-semibold">
@@ -112,11 +112,11 @@ const Header: React.FC = () => {
                 offset={-window.innerHeight / 2 + 400}
                 className="cursor-pointer"
               >
-                <Link to="/">Цены</Link>
+                <Link to="/"> {t("nav.prices")}</Link>
               </Scroll>
             </li>
             <li className="font-semibold">
-              <Link to="/catalog">Каталог</Link>
+              <Link to="/catalog">{t("nav.catelog")}</Link>
             </li>
           </ul>
           <ul id="contacts" className="flex items-center gap-8">
@@ -129,7 +129,7 @@ const Header: React.FC = () => {
                 offset={-window.innerHeight / 2 + 300}
                 className="cursor-pointer"
               >
-                Оставить заявку
+                {t("nav.order")}
               </Scroll>
             </li>
           </ul>

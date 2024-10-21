@@ -1,12 +1,14 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useEffect } from "react";
 import ProductCard from "../product-card/ProductCard";
 import { getScooters } from "../../../service/api";
+import { useTranslation } from "react-i18next";
 
 const ProductList: React.FC = () => {
   const [products, setProducts] = useState<any>({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [productCount, setProductCount] = useState(4);
+  const [, setProductCount] = useState(4);
 
   const updateProductCount = () => {
     const width = window.innerWidth;
@@ -44,10 +46,12 @@ const ProductList: React.FC = () => {
 
   const filteredScooters = products.results;
 
+  const { t } = useTranslation();
+
   return (
     <div className="container w-11/12 mx-auto mt-8 xl:mt-12">
       <h5 className="mb-4 text-xl font-semibold text-center xl:text-4xl xl:mb-8">
-        Цены
+        {t("nav.prices")}
       </h5>
       {loading ? (
         <p className="text-center">Loading...</p>

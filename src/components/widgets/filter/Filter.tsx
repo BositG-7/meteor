@@ -1,4 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 
 interface FilterProps {
   isOpen: boolean;
@@ -29,6 +31,9 @@ const Filter: React.FC<FilterProps> = ({
     }
   }, [filterOptions.price]);
 
+  const { i18n } = useTranslation();
+
+  const lang = i18n.language;
   useEffect(() => {
     const filters = {
       engineTypes: selectedEngineTypes,
@@ -132,63 +137,55 @@ const Filter: React.FC<FilterProps> = ({
       {/* Brands Filter */}
       <div className="mb-4">
         <h3 className="mb-2 text-xl font-semibold">Марка</h3>
-        {
-          //@ts-expect-error
-
-          filterOptions?.brands?.map((brand) => (
-            <div key={brand.id} className="flex items-center">
-              <input
-                type="checkbox"
-                value={brand.name}
-                className="mr-2 size-5"
-                onChange={() => handleBrandChange(brand.name)}
-                checked={selectedBrands.includes(brand.name)}
-              />
-              <label className="block">{brand.name}</label>
-            </div>
-          ))
-        }
+        {filterOptions?.brands?.map((brand: any) => (
+          <div key={brand.id} className="flex items-center">
+            <input
+              type="checkbox"
+              value={brand.name}
+              className="mr-2 size-5"
+              onChange={() => handleBrandChange(brand.name)}
+              checked={selectedBrands.includes(brand.name)}
+            />
+            <label className="block">{brand.name}</label>
+          </div>
+        ))}
       </div>
 
       {/* Battery Types Filter */}
       <div className="mb-4">
         <h3 className="mb-2 text-xl font-semibold">Аккумулятор</h3>
 
-        {
-          // @ts-expect-error
-          filterOptions?.batteryTypes?.map((battery) => (
-            <div key={battery.id} className="flex items-center">
-              <input
-                type="checkbox"
-                value={battery.name}
-                className="mr-2 size-5"
-                onChange={() => handleBatteryTypeChange(battery.name)}
-                checked={selectedBatteryTypes.includes(battery.name)}
-              />
-              <label className="block">{battery.name}</label>
-            </div>
-          ))
-        }
+        {filterOptions?.batteryTypes?.map((battery: any) => (
+          <div key={battery.id} className="flex items-center">
+            <input
+              type="checkbox"
+              value={battery.name}
+              className="mr-2 size-5"
+              onChange={() => handleBatteryTypeChange(battery.name)}
+              checked={selectedBatteryTypes.includes(battery.name)}
+            />
+            <label className="block">{battery.name}</label>
+          </div>
+        ))}
       </div>
 
       {/* Colors Filter */}
       <div className="mb-4">
         <h3 className="mb-2 text-xl font-semibold">Цвет</h3>
-        {
-          //@ts-expect-error
-          filterOptions.colors?.map((color) => (
-            <div key={color.id} className="flex items-center">
-              <input
-                type="checkbox"
-                value={color.name}
-                className="mr-2 size-5"
-                onChange={() => handleColorChange(color.color)}
-                checked={selectedColors.includes(color.color)}
-              />
-              <label className="block">{color.name}</label>
-            </div>
-          ))
-        }
+        {filterOptions.colors?.map((color: any) => (
+          <div key={color.id} className="flex items-center">
+            <input
+              type="checkbox"
+              value={lang === "uz" ? color.name_uz : color.name}
+              className="mr-2 size-5"
+              onChange={() => handleColorChange(color.color)}
+              checked={selectedColors.includes(color.color)}
+            />
+            <label className="block">
+              {lang === "uz" ? color.name_uz : color.name}
+            </label>
+          </div>
+        ))}
       </div>
 
       {/* Price Filter */}

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { ContactUs } from "../components/widgets";
 import { FaCheck } from "react-icons/fa6";
@@ -6,24 +6,15 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Link as Scroll } from "react-scroll";
 import { getScooter } from "../service/api";
 import Information from "../components/information";
-import Charactrs from "../components/characters";
+import DOMPurify from "dompurify";
+import { useTranslation } from "react-i18next";
 
-interface Detail {
-  id: number;
-  key: string;
-  value: string;
-}
-
-interface Character {
-  id: number;
-  name: string;
-  details: Detail[];
-}
 const ProductInfo = () => {
   const [product, setProduct] = useState<{
     id: number;
     brand: { name: string };
     description: string;
+    description_uz: string;
     price: string;
     engine_type: string;
     name: string;
@@ -31,23 +22,36 @@ const ProductInfo = () => {
       name: string;
     }[];
     short_description: string;
+    short_description_uz: string;
     long_description: string;
+    long_description_uz: string;
     colors: {
       id: number;
+      name: string;
+      name_uz: string;
       color: string;
       images: { id: number; image: string }[];
     }[];
-    characters: Character[];
+    characters: string;
+    characters_uz: string;
     images: { id: number; image: string }[];
   }>();
   const [loading, setLoading] = useState(true);
-  const [selectedColor, setSelectedColor] = useState(product?.colors[0].color);
+
   const [step, setStep] = useState<"INFORMATION" | "CHARACTERS">("INFORMATION");
   const [mainImage, setMainImage] = useState<string>("");
   const [activeBattery, setActiveBattery] = useState<string>("");
 
   const { id } = useParams();
   const navigate = useNavigate();
+  const { t, i18n } = useTranslation();
+
+  const lang = i18n.language;
+  const [selectedColor, setSelectedColor] = useState(product?.colors[0].color);
+  const [selectedColorName, setSelectedColorName] = useState({
+    ru: product?.colors[0]?.name,
+    uz: product?.colors[0]?.name_uz,
+  });
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -58,6 +62,7 @@ const ProductInfo = () => {
 
         setMainImage(productData?.images[0].image);
         setActiveBattery(productData?.battery_types[0].name);
+
         setProduct(productData);
       } catch (err) {
         navigate("/");
@@ -69,8 +74,9 @@ const ProductInfo = () => {
     fetchProduct();
   }, []);
 
-  const handleColorChange = (color: string) => {
+  const handleColorChange = (color: string, name: string, name_uz: string) => {
     setSelectedColor(color);
+    setSelectedColorName({ ru: name, uz: name_uz });
   };
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -111,15 +117,17 @@ const ProductInfo = () => {
               />
             </div>
             <div className="hidden gap-5 lg:flex">
-              {product?.images.slice(0, 3).map((item) => (
-                <img
-                  key={item.id}
-                  onClick={() => setMainImage(item.image)}
-                  src={item.image}
-                  className="bg-lightgray p-2 h-[170px] cursor-pointer"
-                  alt="Product"
-                />
-              ))}
+              {product?.images.slice(0, 3).map((item) => {
+                return (
+                  <img
+                    key={item.id}
+                    onClick={() => setMainImage(item.image)}
+                    src={item.image}
+                    className="bg-lightgray p-2 h-[170px] cursor-pointer"
+                    alt="Product"
+                  />
+                );
+              })}
             </div>
           </div>
           <div className="lg:w-2/5 lg:p-10">
@@ -127,12 +135,16 @@ const ProductInfo = () => {
               <h1 className="text-lg font-semibold lg:text-3xl lg:mb-5">
                 {product?.name}
               </h1>
-              <p className="text-sm lg:text-xl">{product?.description}</p>
+              <p className="text-sm lg:text-xl">
+                {lang === "uz" ? product?.description_uz : product?.description}
+              </p>
             </div>
             <div>
               <div className="flex items-center gap-4 lg:block">
                 <div className="flex items-center gap-2 mb-5 lg:w-full lg:block">
-                  <h2 className="mb-1 text-sm lg:text-xl lg:mb-2">Цена:</h2>
+                  <h2 className="mb-1 text-sm lg:text-xl lg:mb-2">
+                    {t("price")}
+                  </h2>
                   <p className="font-semibold md:text-sm lg:text-3xl">
                     {new Intl.NumberFormat("uz-UZ", {}).format(
                       // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
@@ -143,7 +155,12 @@ const ProductInfo = () => {
                 </div>
                 <div className="flex items-center gap-4 mb-5 lg:w-full lg:block">
                   <h2 className="mb-1 text-sm lg:text-xl lg:mb-2">
-                    Цвет: <span className="hidden lg:inline-block">Серый</span>
+                    Цвет:{" "}
+                    <span className="hidden lg:inline-block">
+                      {lang === "uz"
+                        ? selectedColorName.uz
+                        : selectedColorName.ru}
+                    </span>
                   </h2>
                   <div className="flex items-center">
                     <div className="flex gap-2">
@@ -154,7 +171,12 @@ const ProductInfo = () => {
                             value={color.color}
                             checked={selectedColor === color.color}
                             onChange={() => {
-                              handleColorChange(color.color);
+                              handleColorChange(
+                                color.color,
+                                color.name,
+                                color.name_uz
+                              );
+
                               setMainImage(color.images[0].image);
                             }}
                             className={`appearance-none rounded-md w-8 h-8 lg:w-10 lg:h-10 cursor-pointer ${
@@ -251,9 +273,15 @@ const ProductInfo = () => {
           {step === "INFORMATION" ? (
             <Information product={product} />
           ) : (
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-expect-error
-            <Charactrs product={product} />
+            <div
+              dangerouslySetInnerHTML={{
+                __html: DOMPurify.sanitize(
+                  lang === "uz"
+                    ? product?.characters_uz || ""
+                    : product?.characters || ""
+                ),
+              }}
+            />
           )}
         </div>
       </div>

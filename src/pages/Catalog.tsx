@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useEffect, useCallback } from "react";
 import ProductCard from "../components/widgets/product-card/ProductCard";
 import Filter from "../components/widgets/filter/Filter";
@@ -7,7 +8,7 @@ import { getScootersWithFilters, getFilters } from "../service/api";
 
 const Catalog: React.FC = () => {
   const [products, setProducts] = useState<any>({});
-  const [productCount, setProductCount] = useState(4);
+  const [, setProductCount] = useState(4);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [filters, setFilters] = useState({});
   const [filterOptions, setFilterOptions] = useState({});

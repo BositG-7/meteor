@@ -5,6 +5,7 @@ import Scooter1Image from "../../../assets/img/scooteryellow.png";
 import Scooter2Image from "../../../assets/img/scooterred.png";
 import Scooter3Image from "../../../assets/img/scooterwhite.png";
 import Scooter4Image from "../../../assets/img/scooterredtwo.png";
+import { useTranslation } from "react-i18next";
 
 const images = [Scooter1Image, Scooter2Image, Scooter3Image, Scooter4Image];
 
@@ -22,6 +23,7 @@ const Carousel: React.FC = () => {
     const newIndex = isLastSlide ? 0 : currentIndex + 1;
     setCurrentIndex(newIndex);
   };
+  const { t } = useTranslation();
 
   return (
     <div className="relative bg-white mb-8 xl:mb-16">
@@ -64,7 +66,7 @@ const Carousel: React.FC = () => {
                       href="/catalog"
                       className="px-8 xl:px-16 py-2 rounded-full text-xl xl:text-3xl bg-orange text-white"
                     >
-                      Подробнее
+                      {t("btn1")}
                     </a>
                   </div>
                 </div>

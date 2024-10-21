@@ -1,5 +1,31 @@
 {
-    "welcome": "Bizning dasturga xush kelibsiz",
-    "description": "Bu Reactdagi xalqaro tillarni qo'llab-quvvatlash misolidir"
+    "price":"Narxi",
+    "nav":{
+      "prices":"Narxlar",
+      "main":"Bosh sahifa",
+      "about":"Biz haqimizda",
+      "moped":"Mopedy",
+      "information_moped":"Mopedlar haqida ma'lumot",
+      "catelog":"Katalog",
+      "order":"So'rov qoldiring"
+
+
+
+    },
+    "btn1":"Batafsil",
+    "search_btn":"Qidiruv",
+    "information_company":"Kanpaniya haqida ma'lumot",
+    "description_company":"Meteor Scooters - bu yuqori sifatli mopedlarni sotish va xizmat ko'rsatishga ixtisoslashgan yosh va dinamik rivojlanayotgan kompaniya. Biz turli xil model va sig'imdagi mopedlarning keng assortimentini taklif qilamiz, shahar sharoitlari uchun engil va ixchamdan tortib, kuchli sayohat imkoniyatlarigacha. Bizning maqsadimiz mijozlarga kundalik sayohatlarida qulaylik va qulaylik yaratish uchun arzon va ishonchli transport vositalarini taqdim etishdir. Meteor Scooters yuqori darajadagi xizmat ko'rsatish va har bir mijozga shaxsiy e'tiborni taqdim etish, ishonchlilik, xavfsizlik va mahsulotlarimizdan qoniqishni ta'minlashga intiladi.",
+    "choose_model":"O'zingiz uchun modelni tanlang",
+    "marka":"Marka",
+    
+    "model":"Model",
+    "type_moped":"Moped turi"
+    
+
+
+
+
+
   }
   
